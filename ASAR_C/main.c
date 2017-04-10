@@ -1,8 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "lectureWav.h"
 
 int main()
 {
-    printf("Hello world!\n");
-    return 0;
+    EnTeteWav enTeteWav;
+    char *son;
+    chargeSonEnMemoire(NOM_FICHIER_ENTREE, &enTeteWav, son);
+    afficheEnteteWav(enTeteWav);
+    return OK;
 }

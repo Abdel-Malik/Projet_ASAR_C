@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1491824049 source:c:\users\amalik\documents\github\projet_asar_c\asar_c\lecturewav.c
+	"lectureWav.h"
+
+1491824333 c:\users\amalik\documents\github\projet_asar_c\asar_c\lecturewav.h
+	<stdlib.h>
+	<stdio.h>
+	<unistd.h>
+	<time.h>
+
+1491824115 source:c:\users\amalik\documents\github\projet_asar_c\asar_c\main.c
+	"lectureWav.h"
+
