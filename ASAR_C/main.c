@@ -7,13 +7,21 @@ int main()
     if(ret == OK)
         afficheEnteteWav(leSon.entete);
     char *canalGauche;
-    //recupCanalGauche(canalGauche,leSon);
-    for(int i = 0; i <4*50; i=i+4){
-        float a = (leSon.son[i]<<8)+leSon.son[i+1];
-        a = a/131072;
-        float b = (leSon.son[i+2]<<8)+leSon.son[i+3];
-        b = b/131072;
-        printf("\n%f %f %d",a,b,i);
+    recupCanalGauche(&canalGauche,leSon);
+    float a = (((char)(0b11111010)<<8)+(char)0b11111111); //fa.ff
+    a = a/32765;
+    printf("\n%f",a);
+    a = (((char)(0b11111111)<<8)+(char)0b01011111); //mirroir de fa.ff => ff.5f
+    a = a/32765;
+    printf("\n%f",a);
+    a = (((char)(0b11111111)<<8)+(char)0b11110101); //mirroir de ff.af => ff.f5
+    a = a/32765;
+    int16_t b = -0.0001831;
+    printf("\n%f",b);
+    for(int i = 10; i <0; i=i+2){
+        float a = (canalGauche[i+1]<<8)+canalGauche[i];
+        a = a/32765;
+        printf("\n%f et %d",a,i/2);
     }
     return OK;
 }
