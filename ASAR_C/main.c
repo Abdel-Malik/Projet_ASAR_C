@@ -2,11 +2,12 @@
 
 int main()
 {
-
     FichierWav leSon;
     int ret = chargeSonEnMemoire(NOM_FICHIER_ENTREE, &leSon);
     if(ret == OK)
         afficheEnteteWav(leSon.entete);
+    char *canalGauche;
+    //recupCanalGauche(canalGauche,leSon);
     for(int i = 0; i <4*50; i=i+4){
         float a = (leSon.son[i]<<8)+leSon.son[i+1];
         a = a/131072;

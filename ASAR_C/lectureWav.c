@@ -27,7 +27,15 @@ void litEnteteWav(FILE *fSon, EnTeteWav *eTwav){
     fread(&(eTwav->BytePerBloc),sizeof(short int),1,fSon);
     fread(&(eTwav->BytePerSample),sizeof(short int),1,fSon);
 }
-
+/*
+void recupCanalGauche(char *cG, FichierWav s){
+    int nbSample = s.tailleSon/s.entete.NbrCanaux;
+    char nbOctets = s.entete.BlocSize/8;
+    cG = malloc(nbSample);
+    for(int i = 0; i<nbSample; i++){
+        for(int j=0)
+    }
+}
 
 /***
 param in  : fichier son, corps vide.
