@@ -11,3 +11,15 @@
 1491922868 source:c:\users\amalik\documents\github\projet_asar_c\asar_c\main.c
 	"lectureWav.h"
 
+1491991611 source:c:\users\bouhassa\documents\github\projet_asar_c\asar_c\lecturewav.c
+	"lectureWav.h"
+
+1491991327 c:\users\bouhassa\documents\github\projet_asar_c\asar_c\lecturewav.h
+	<stdlib.h>
+	<stdio.h>
+	<unistd.h>
+	<time.h>
+
+1491991809 source:c:\users\bouhassa\documents\github\projet_asar_c\asar_c\main.c
+	"lectureWav.h"
+

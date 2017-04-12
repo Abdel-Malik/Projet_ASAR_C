@@ -28,13 +28,20 @@ void litEnteteWav(FILE *fSon, EnTeteWav *eTwav){
     fread(&(eTwav->BytePerSample),sizeof(short int),1,fSon);
 }
 
-void recupCanalGauche(char **cG, FichierWav s){
+void recupCanalGauche(float **cG, FichierWav s){
     int nbSample = s.tailleSon/s.entete.NbrCanaux;
-    *cG = malloc(nbSample);
+    int i = 0;
+    float a;
+    *cG = malloc(nbSample*sizeof(float));
     for(int j=0; j<nbSample; j=j+s.entete.BytePerBloc*s.entete.NbrCanaux){
+        a=0;
         for(int k=0; k<s.entete.BytePerBloc; k++){
-            (*cG)[j+k] = s.son[j+k];
+            a *= 256;
+            a += s.son[j+k];
+            i++;
         }
+        (*cG)[i] = a/32765;
+        printf("\n%f",(*cG)[i]);
     }
 }
 

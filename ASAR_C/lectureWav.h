@@ -43,7 +43,7 @@ void litEnteteWav(FILE *fSon, EnTeteWav *eTwav);
 int litCorpsWav(FILE *fSon, FichierWav *fwav);
 int chargeSonEnMemoire(char *nomDeFichierWav, FichierWav *wav);
 void afficheEnteteWav(EnTeteWav enTeteWav);
-void recupCanalGauche(char **canalGauche, FichierWav leSon);
+void recupCanalGauche(float **canalGauche, FichierWav leSon);
 
 
 /************************************/
