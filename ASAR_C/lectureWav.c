@@ -27,6 +27,7 @@ void litEnteteWav(FILE *fSon, EnTeteWav *eTwav){
     fread(&(eTwav->BytePerBloc),sizeof(short int),1,fSon);
     fread(&(eTwav->BytePerSample),sizeof(short int),1,fSon);
 }
+<<<<<<< HEAD
 
 void recupCanalGauche(float **cG, FichierWav s){
     int nbSample = s.tailleSon/s.entete.NbrCanaux;
@@ -42,6 +43,15 @@ void recupCanalGauche(float **cG, FichierWav s){
         }
         (*cG)[i] = a/32765;
         printf("\n%f",(*cG)[i]);
+=======
+/*
+void recupCanalGauche(char *cG, FichierWav s){
+    int nbSample = s.tailleSon/s.entete.NbrCanaux;
+    char nbOctets = s.entete.BlocSize/8;
+    cG = malloc(nbSample);
+    for(int i = 0; i<nbSample; i++){
+        for(int j=0)
+>>>>>>> parent of e4d781d... Récupération du canal gauche de l'enregistrement
     }
 }
 
