@@ -43,11 +43,7 @@ void litEnteteWav(FILE *fSon, EnTeteWav *eTwav);
 int litCorpsWav(FILE *fSon, FichierWav *fwav);
 int chargeSonEnMemoire(char *nomDeFichierWav, FichierWav *wav);
 void afficheEnteteWav(EnTeteWav enTeteWav);
-<<<<<<< HEAD
-void recupCanalGauche(float **canalGauche, FichierWav leSon);
-=======
-void recupCanalGauche(char *canalGauche, FichierWav leSon);
->>>>>>> parent of e4d781d... Récupération du canal gauche de l'enregistrement
+void recupCanalGauche(char **canalGauche, FichierWav leSon);
 
 
 /************************************/

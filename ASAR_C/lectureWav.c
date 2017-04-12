@@ -27,31 +27,14 @@ void litEnteteWav(FILE *fSon, EnTeteWav *eTwav){
     fread(&(eTwav->BytePerBloc),sizeof(short int),1,fSon);
     fread(&(eTwav->BytePerSample),sizeof(short int),1,fSon);
 }
-<<<<<<< HEAD
 
-void recupCanalGauche(float **cG, FichierWav s){
+void recupCanalGauche(char **cG, FichierWav s){
     int nbSample = s.tailleSon/s.entete.NbrCanaux;
-    int i = 0;
-    float a;
-    *cG = malloc(nbSample*sizeof(float));
+    *cG = malloc(nbSample);
     for(int j=0; j<nbSample; j=j+s.entete.BytePerBloc*s.entete.NbrCanaux){
-        a=0;
         for(int k=0; k<s.entete.BytePerBloc; k++){
-            a *= 256;
-            a += s.son[j+k];
-            i++;
+            (*cG)[j+k] = s.son[j+k];
         }
-        (*cG)[i] = a/32765;
-        printf("\n%f",(*cG)[i]);
-=======
-/*
-void recupCanalGauche(char *cG, FichierWav s){
-    int nbSample = s.tailleSon/s.entete.NbrCanaux;
-    char nbOctets = s.entete.BlocSize/8;
-    cG = malloc(nbSample);
-    for(int i = 0; i<nbSample; i++){
-        for(int j=0)
->>>>>>> parent of e4d781d... Récupération du canal gauche de l'enregistrement
     }
 }
 
@@ -68,7 +51,7 @@ int litCorpsWav(FILE *fSon, FichierWav *fwav){
 
     fwav->son = malloc(fwav->tailleSon);
     fread(fwav->son,sizeof(char),fwav->tailleSon,fSon);
-    fwav->ptZoneSon = 0;
+    //fwav->ptZoneSon = 0;
     return OK;
 }
 
