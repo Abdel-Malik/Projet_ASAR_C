@@ -1,5 +1,25 @@
 #include "lectureWav.h"
 
+
+
+float* extractionCanalGauche(){
+    FichierWav leSon;
+    int ret = chargeSonEnMemoire(NOM_FICHIER_ENTREE, &leSon);
+    if(ret == OK)
+        afficheEnteteWav(leSon.entete);
+    unsigned char *canalGauche;
+    recupCanalGauche(&canalGauche,leSon);
+    signed short int t;
+    int d = leSon.tailleSon/(leSon.entete.NbrCanaux*leSon.entete.BytePerBloc);
+
+    float tabEch[d];
+    for(int i = 0; i <d*2; i=i+2){
+        t = (canalGauche[i+1]<<8)+canalGauche[i];
+        tabEch[i/2] = (float)t/32765;
+    }
+    free(leSon.son);
+    return tabEch;
+}
 /***
 param in  : fichier son, une entete vide.
   but : Compléter la structure entête avec les informations se trouvant dans le fichier
@@ -28,12 +48,14 @@ void litEnteteWav(FILE *fSon, EnTeteWav *eTwav){
     fread(&(eTwav->BytePerSample),sizeof(short int),1,fSon);
 }
 
-void recupCanalGauche(char **cG, FichierWav s){
+void recupCanalGauche(unsigned char **cG, FichierWav s){
     int nbSample = s.tailleSon/s.entete.NbrCanaux;
+    int i = 0;
     *cG = malloc(nbSample);
-    for(int j=0; j<nbSample; j=j+s.entete.BytePerBloc*s.entete.NbrCanaux){
-        for(int k=0; k<s.entete.BytePerBloc; k++){
-            (*cG)[j+k] = s.son[j+k];
+    for(int j=0; j<s.tailleSon; j=j+s.entete.BytePerBloc*(s.entete.NbrCanaux-1)){
+        for(int k=0; k<s.entete.BytePerBloc/s.entete.NbrCanaux; k++){
+            (*cG)[i] = s.son[j+k];
+            i++;
         }
     }
 }

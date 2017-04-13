@@ -43,7 +43,7 @@ void litEnteteWav(FILE *fSon, EnTeteWav *eTwav);
 int litCorpsWav(FILE *fSon, FichierWav *fwav);
 int chargeSonEnMemoire(char *nomDeFichierWav, FichierWav *wav);
 void afficheEnteteWav(EnTeteWav enTeteWav);
-void recupCanalGauche(char **canalGauche, FichierWav leSon);
+void recupCanalGauche(unsigned char **canalGauche, FichierWav leSon);
 
 
 /************************************/
@@ -57,6 +57,6 @@ void recupCanalGauche(char **canalGauche, FichierWav leSon);
 //#define OFFSET_...//TODO//
 
 /** Fichier dont le programme s'occupe **/
-#define NOM_FICHIER_ENTREE "ASAR/Phone.wav"
+#define NOM_FICHIER_ENTREE "3Bonjours2.wav" //#define NOM_FICHIER_ENTREE "ASAR/Phone.wav"
 
 #endif
