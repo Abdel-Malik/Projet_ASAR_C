@@ -114,7 +114,7 @@ void Levinson(float r[], float x[], float y[], int n){
 
 void main(){
 
-    int p = 7; //Ordre égale à AR(p-1)
+    int p = 15; //Ordre égale à AR(p-1)
     p = p+1;
     float *data;
     int taille;

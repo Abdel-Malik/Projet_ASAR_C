@@ -5,6 +5,7 @@ param in : pointeur pointant sur le tableau alloué
 param out  : taille du tableau;
   but : Récupération de floats représentant les échantillons du fichier
 ***/
+/**Fonctions intermédiaires (tests)**/
 int extractionCanalGauche(float** tab){
     FichierWav leSon;
     int ret = chargeSonEnMemoire(NOM_FICHIER_ENTREE, &leSon);
@@ -32,6 +33,7 @@ int extraction20msCanalGauche(float** tab){
         afficheEnteteWav(leSon.entete);
     unsigned char *canalGauche;
     recupCanalGauche(&canalGauche,leSon);
+    free(leSon.son);
     signed short int t;
     int nbSample = (leSon.entete.Frequence)/5;
     *tab = malloc(sizeof(float)*nbSample);
@@ -39,7 +41,32 @@ int extraction20msCanalGauche(float** tab){
         t = (canalGauche[i+1]<<8)+canalGauche[i];
         (*tab)[i/2] = (float)t/32768;
     }
-    free(leSon.son);
+    free(canalGauche);
+    return nbSample;
+}
+/**Fonctions intermédiaires**/
+
+int conversionFloat20msCanalI(float** tab, char a){
+    FichierWav leSon;
+    int ret = chargeSonEnMemoire(NOM_FICHIER_ENTREE, &leSon);
+
+    if(a > leSon.entete.NbrCanaux)
+        a = 1;
+    if(ret != OK)
+        afficheEnteteWav(leSon.entete);
+
+    unsigned char *canalGauche = leSon.son;
+    signed short int t;
+    char nbOctets = leSon.entete.BytePerSample/8;
+    int nbSample = (leSon.entete.Frequence)/5;
+    *tab = malloc(sizeof(float)*nbSample);
+    for(int i = a-1; i <nbSample*leSon.entete.BytePerBloc; i=i+leSon.entete.BytePerBloc){ //Lecture K par K [K char => float] K<=4
+        t = canalGauche[i+nbOctets-1];
+        for(int j = nbOctets-1; j>=0; j--){
+            t = (t<<8)+canalGauche[i+j];
+        }
+        (*tab)[i/2] = (float)t/32768;
+    }
     free(canalGauche);
     return nbSample;
 }
