@@ -75,7 +75,7 @@ void recupCanalGauche(unsigned char **cG, FichierWav s){
     int nbSample = s.tailleSon/s.entete.NbrCanaux;
     int i = 0;
     *cG = malloc(nbSample);
-    for(int j=0; j<s.tailleSon; j=j+s.entete.BytePerBloc*(s.entete.NbrCanaux-1)){
+    for(int j=0; j<s.tailleSon; j=j+s.entete.BytePerBloc){
         for(int k=0; k<s.entete.BytePerBloc/s.entete.NbrCanaux; k++){
             (*cG)[i] = s.son[j+k];
             i++;
