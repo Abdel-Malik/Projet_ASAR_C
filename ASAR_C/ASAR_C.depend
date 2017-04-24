@@ -23,3 +23,25 @@
 1492090272 source:c:\users\bouhassa\documents\github\projet_asar_c\asar_c\main.c
 	"lectureWav.h"
 
+1492182044 source:e:\github\projet_asar_c\asar_c\lecturewav.c
+	"lectureWav.h"
+
+1492181458 e:\github\projet_asar_c\asar_c\lecturewav.h
+	<stdlib.h>
+	<stdio.h>
+	<unistd.h>
+	<time.h>
+
+1492091418 source:e:\github\projet_asar_c\asar_c\main.c
+	"lectureWav.h"
+
+1492177768 source:e:\github\projet_asar_c\asar_c\levinson_fonctionnel_optimise_wav.c
+	<stdio.h>
+	<stddef.h>
+	<stdlib.h>
+
+1493024370 source:e:\github\projet_asar_c\asar_c\levinson_fonctionnel_optimise_wav_test.c
+	<stdio.h>
+	<stddef.h>
+	<stdlib.h>
+

@@ -1,8 +1,11 @@
 #include "lectureWav.h"
 
-
-
-float* extractionCanalGauche(){
+/***
+param in : pointeur pointant sur le tableau alloué
+param out  : taille du tableau;
+  but : Récupération de floats représentant les échantillons du fichier
+***/
+int extractionCanalGauche(float** tab){
     FichierWav leSon;
     int ret = chargeSonEnMemoire(NOM_FICHIER_ENTREE, &leSon);
     if(ret == OK)
@@ -13,12 +16,32 @@ float* extractionCanalGauche(){
     int d = leSon.tailleSon/(leSon.entete.NbrCanaux*leSon.entete.BytePerBloc);
 
     float tabEch[d];
+    *tab = &tabEch;
     for(int i = 0; i <d*2; i=i+2){
         t = (canalGauche[i+1]<<8)+canalGauche[i];
-        tabEch[i/2] = (float)t/32765;
+        tabEch[i/2] = (float)t/32768;
     }
     free(leSon.son);
-    return tabEch;
+    return d;
+}
+
+int extraction20msCanalGauche(float** tab){
+    FichierWav leSon;
+    int ret = chargeSonEnMemoire(NOM_FICHIER_ENTREE, &leSon);
+    if(ret == OK)
+        afficheEnteteWav(leSon.entete);
+    unsigned char *canalGauche;
+    recupCanalGauche(&canalGauche,leSon);
+    signed short int t;
+    int nbSample = (leSon.entete.Frequence);
+    *tab = malloc(sizeof(float)*nbSample);
+    for(int i = 0; i <nbSample*2; i=i+2){ //Lecture 2 par 2 [2 char => float]
+        t = (canalGauche[i+1]<<8)+canalGauche[i];
+        (*tab)[i/2] = (float)t/32768;
+    }
+    free(leSon.son);
+    free(canalGauche);
+    return nbSample;
 }
 /***
 param in  : fichier son, une entete vide.

@@ -44,6 +44,7 @@ int litCorpsWav(FILE *fSon, FichierWav *fwav);
 int chargeSonEnMemoire(char *nomDeFichierWav, FichierWav *wav);
 void afficheEnteteWav(EnTeteWav enTeteWav);
 void recupCanalGauche(unsigned char **canalGauche, FichierWav leSon);
+int extraction20msCanalGauche(float** tab);
 
 
 /************************************/
