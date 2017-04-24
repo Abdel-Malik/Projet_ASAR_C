@@ -33,9 +33,9 @@ int extraction20msCanalGauche(float** tab){
     unsigned char *canalGauche;
     recupCanalGauche(&canalGauche,leSon);
     signed short int t;
-    int nbSample = (leSon.entete.Frequence);
+    int nbSample = (leSon.entete.Frequence)/5;
     *tab = malloc(sizeof(float)*nbSample);
-    for(int i = 0; i <nbSample*2; i=i+2){ //Lecture 2 par 2 [2 char => float]
+    for(int i = 0; i <nbSample*(leSon.entete.BytePerSample/8); i=i+(leSon.entete.BytePerSample/8)){ //Lecture 2 par 2 [2 char => float]
         t = (canalGauche[i+1]<<8)+canalGauche[i];
         (*tab)[i/2] = (float)t/32768;
     }
