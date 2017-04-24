@@ -29,7 +29,7 @@ int extractionCanalGauche(float** tab){
 int extraction20msCanalGauche(float** tab){
     FichierWav leSon;
     int ret = chargeSonEnMemoire(NOM_FICHIER_ENTREE, &leSon);
-    if(ret == OK)
+    if(ret != OK)
         afficheEnteteWav(leSon.entete);
     unsigned char *canalGauche;
     recupCanalGauche(&canalGauche,leSon);
@@ -60,12 +60,13 @@ int conversionFloat20msCanalI(float** tab, char a){
     char nbOctets = leSon.entete.BytePerSample/8;
     int nbSample = (leSon.entete.Frequence)/5;
     *tab = malloc(sizeof(float)*nbSample);
-    for(int i = a-1; i <nbSample*leSon.entete.BytePerBloc; i=i+leSon.entete.BytePerBloc){ //Lecture K par K [K char => float] K<=4
+    for(int i = (a-1)*nbOctets; i <nbSample*leSon.entete.BytePerBloc; i=i+leSon.entete.BytePerBloc){ //Lecture K par K [K char => float] K<=4 ; lecture qui démarre au 1er octet du canal choisie
+
         t = canalGauche[i+nbOctets-1];
         for(int j = nbOctets-1; j>=0; j--){
             t = (t<<8)+canalGauche[i+j];
         }
-        (*tab)[i/2] = (float)t/32768;
+        (*tab)[i/leSon.entete.BytePerBloc] = (float)t/32768;
     }
     free(canalGauche);
     return nbSample;

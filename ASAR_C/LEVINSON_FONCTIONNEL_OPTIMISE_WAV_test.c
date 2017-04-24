@@ -114,11 +114,12 @@ void Levinson(float r[], float x[], float y[], int n){
 
 void main(){
 
-    int p = 15; //Ordre égale à AR(p-1)
+    int p = 1500; //Ordre égale à AR(p-1)
     p = p+1;
     float *data;
     int taille;
-    taille = extraction20msCanalGauche(&data); //donnees recuperees a partir du fichier wav
+    //taille = extraction20msCanalGauche(&data); //donnees recuperees a partir du fichier wav
+    taille = conversionFloat20msCanalI(&data,1);
     int i;
 
     float r[p];
