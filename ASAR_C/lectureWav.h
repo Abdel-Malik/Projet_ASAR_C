@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stddef.h>
 #include <unistd.h>
 #include <time.h>
 
@@ -30,7 +31,6 @@ typedef struct{
     char motData[5];
     int tailleSon;
     char *son;
-    int ptZoneSon;
 }FichierWav;
 
 
@@ -56,7 +56,6 @@ int conversionFloat20msCanalI(float** tab, char canalChoisi);
 #define OFFSET_4CHAR 4
 #define OFFSET_INT 4
 #define OFFSET_SHORT 2
-//#define OFFSET_...//TODO//
 
 /** Fichier dont le programme s'occupe **/
 #define NOM_FICHIER_ENTREE "3Bonjours2.wav" //#define NOM_FICHIER_ENTREE "ASAR/Phone.wav"

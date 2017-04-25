@@ -23,12 +23,13 @@
 1492090272 source:c:\users\bouhassa\documents\github\projet_asar_c\asar_c\main.c
 	"lectureWav.h"
 
-1493044780 source:e:\github\projet_asar_c\asar_c\lecturewav.c
+1493046490 source:e:\github\projet_asar_c\asar_c\lecturewav.c
 	"lectureWav.h"
 
-1493042984 e:\github\projet_asar_c\asar_c\lecturewav.h
+1493046496 e:\github\projet_asar_c\asar_c\lecturewav.h
 	<stdlib.h>
 	<stdio.h>
+	<stddef.h>
 	<unistd.h>
 	<time.h>
 
@@ -40,8 +41,12 @@
 	<stddef.h>
 	<stdlib.h>
 
-1493044790 source:e:\github\projet_asar_c\asar_c\levinson_fonctionnel_optimise_wav_test.c
-	<stdio.h>
-	<stddef.h>
-	<stdlib.h>
+1492177768 D
+
+1493134634 source:e:\github\projet_asar_c\asar_c\levinson_fonctionnel_optimise_wav_test.c
+	"lectureWav.h"
+
+1493046220 v.h"
+
+1493040056 ent of 2de1efd... Généralisation - récupération tout canal ; toutes tailles
 

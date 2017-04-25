@@ -1,10 +1,34 @@
-#include <stdio.h>
-#include <stddef.h>
-#include <stdlib.h>
+#include "lectureWav.h"
 
 #define NR_END 1
 #define FREE_ARG char*
 
+void opti(float* tab,float *rA,int n,int ordre){
+    double sAmeliore;
+    int bloc,k,max;
+    for(int i=0; i<ordre+1; i++){
+        sAmeliore = 0;
+        bloc = 0;
+        if(i>0)
+            max = ((n)/(2*i)-1);
+        else
+            max = 0;
+        while(bloc<max){
+            int index = bloc*2*i;
+            for(int p=0;p<i;p++){
+                sAmeliore += (tab[index]+tab[index+2*i])*tab[index+i];
+                index++;
+            }
+            bloc++;
+        }
+        k = bloc*2*i;
+        while(k+i<n){
+            sAmeliore += tab[k]*tab[k+i];
+            k++;
+        }
+        rA[i] = sAmeliore;
+    }
+}
 
 float *vector(long nl, long nh) /* allocate a float vector with subscript range v[nl..nh] */
 {
@@ -114,25 +138,17 @@ void Levinson(float r[], float x[], float y[], int n){
 
 void main(){
 
-    int p = 1500; //Ordre égale à AR(p-1)
+    int p = 5; //Ordre égale à AR(p-1)
     p = p+1;
     float *data;
     int taille;
-    //taille = extraction20msCanalGauche(&data); //donnees recuperees a partir du fichier wav
-    taille = conversionFloat20msCanalI(&data,1);
+    taille = extraction20msCanalGauche(&data); //donnees recuperees a partir du fichier wav
+    //taille = conversionFloat20msCanalI(&data,1);
     int i;
-
     float r[p];
-    float som;
+    double som;
 
-    for(int i = 0; i<p; i++){
-        som=0;
-        for(int j=0; j<taille-i; j++){
-            som+=data[j]*data[i+j];
-        }
-        r[i] = som;
-    }
-
+    opti(data,&r,taille,p);
 
     //Mise en forme du tableau des coeffs d'autocorrelation rr[] pour Levinson()
     float rr[2*p-1];
@@ -154,7 +170,6 @@ void main(){
     float a[p]; //Initialisation d'un tableau vide pour les coeffs d'autoregression
 
     Levinson(rr, a, r, p-1); //Resolution du systeme
-
     printf("\na = [" ); //Affichage de la solution -> affichage des coeffs d'autoregression
 
     for(i=1; i<p; i++){
