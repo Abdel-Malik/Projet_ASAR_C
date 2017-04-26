@@ -21,9 +21,9 @@ int conversionFloat20msCanalI(float** tab, char a){
 	unsigned char *canalGauche = leSon.son;
     signed short int t;
     char nbOctets = leSon.entete.BytePerSample/8; //nombre d'octet sur lequel est codée un echantillon
-
+	a = a*nbOctets;
     *tab = malloc(sizeof(float)*nbSample);
-    for(int i = a-1; i <nbSample*leSon.entete.BytePerBloc; i=i+leSon.entete.BytePerBloc){ //K : groupe d'octets d'un échantillon. Lecture K par K [K char => float] K<=4
+    for(int i = a-nbOctets; i <nbSample*leSon.entete.BytePerBloc; i=i+leSon.entete.BytePerBloc){ //K : groupe d'octets d'un échantillon. Lecture K par K [K char => float] K<=4
         t = canalGauche[i+nbOctets-1];
         for(int j = nbOctets-1; j>=0; j--){ //transforme les char d'un échantillon X en un float.
             t = (t<<8)+canalGauche[i+j];
