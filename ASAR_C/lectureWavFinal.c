@@ -7,7 +7,7 @@ param out  : taille du tableau;
   but : Récupération de floats représentant les échantillons du fichier
   Cas ou le canal choisi n'existe pas : Selection du premier canal. (gauche s'il en existe plusieurs)
 ***/
-int conversionFloat20msCanalI(float** tab, char a){
+int conversionFloat20msCanalI(float** tab, char a, int debut){
     FichierWav leSon;
     int ret = chargeSonEnMemoire(NOM_FICHIER_ENTREE, &leSon);
 	int nbSample = 0;
@@ -21,14 +21,15 @@ int conversionFloat20msCanalI(float** tab, char a){
 	unsigned char *canalGauche = leSon.son;
     signed short int t;
     char nbOctets = leSon.entete.BytePerSample/8; //nombre d'octet sur lequel est codée un echantillon
-	a = a*nbOctets;
+	a = (a-1)*nbOctets;
     *tab = malloc(sizeof(float)*nbSample);
-    for(int i = a-nbOctets; i <nbSample*leSon.entete.BytePerBloc; i=i+leSon.entete.BytePerBloc){ //K : groupe d'octets d'un échantillon. Lecture K par K [K char => float] K<=4
+    for(int i = a+(debut*leSon.entete.BytePerBloc); i <((nbSample+debut)*leSon.entete.BytePerBloc); i=i+leSon.entete.BytePerBloc){ //K : groupe d'octets d'un échantillon. Lecture K par K [K char => float] K<=4
         t = canalGauche[i+nbOctets-1];
         for(int j = nbOctets-1; j>=0; j--){ //transforme les char d'un échantillon X en un float.
             t = (t<<8)+canalGauche[i+j];
         }
-        (*tab)[i/leSon.entete.BytePerBloc] = (float)t/32768;
+        (*tab)[(i-(a+debut*leSon.entete.BytePerBloc))/leSon.entete.BytePerBloc] = (float)t/32768;
+        printf("%d max : %d\n",(i-(a+debut*leSon.entete.BytePerBloc))/leSon.entete.BytePerBloc,nbSample);
     }
     free(canalGauche);
     return nbSample;

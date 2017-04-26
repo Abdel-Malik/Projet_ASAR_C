@@ -50,16 +50,16 @@
 
 1493040056 ent of 2de1efd... Généralisation - récupération tout canal ; toutes tailles
 
-1493213444 source:e:\github\projet_asar_c\asar_c\lecturewavfinal.c
+1493215940 source:e:\github\projet_asar_c\asar_c\lecturewavfinal.c
 	"lectureWavFinal.h"
 
-1493212614 e:\github\projet_asar_c\asar_c\lecturewavfinal.h
+1493214932 e:\github\projet_asar_c\asar_c\lecturewavfinal.h
 	<stdlib.h>
 	<stdio.h>
 	<stddef.h>
 	<unistd.h>
 	<time.h>
 
-1493212254 source:e:\github\projet_asar_c\asar_c\levinson_final.c
+1493215898 source:e:\github\projet_asar_c\asar_c\levinson_final.c
 	"lectureWavFinal.h"
 

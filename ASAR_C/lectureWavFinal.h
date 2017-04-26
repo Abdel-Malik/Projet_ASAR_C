@@ -38,7 +38,7 @@ void litEnteteWav(FILE *fSon, EnTeteWav *eTwav);
 int litCorpsWav(FILE *fSon, FichierWav *fwav);
 int chargeSonEnMemoire(char *nomDeFichierWav, FichierWav *wav);
 void afficheEnteteWav(EnTeteWav enTeteWav);
-int conversionFloat20msCanalI(float** tab, char canalChoisi);
+int conversionFloat20msCanalI(float** tab, char canalChoisi, int numEchantillonDepart);
 
 
 /************************************/

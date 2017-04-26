@@ -143,7 +143,7 @@ void main(){
     float *data;
     int taille;
 
-    taille = conversionFloat20msCanalI(&data,1);//donnees recuperees a partir du fichier wav
+    taille = conversionFloat20msCanalI(&data,1,0);//donnees recuperees a partir du fichier wav
 
     int i;
     float r[p];
@@ -151,7 +151,7 @@ void main(){
 
 	//Calcul des coéfficients d'autocorrélation
     opti(data,&r,taille,p);
-
+    free(data);
     //Mise en forme du tableau des coeffs d'autocorrelation rr[] pour Levinson()
     float rr[2*p-1];
 
@@ -181,11 +181,7 @@ void main(){
             printf("%1.4f", -a[i]);
         }
     }
-
     printf("]\n");
-
-
-    return;
 }
 
 
