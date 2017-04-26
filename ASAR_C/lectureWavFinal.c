@@ -1,53 +1,5 @@
-#include "lectureWav.h"
+#include "lectureWavFinal.h"
 
-
-/**Fonctions intermédiaires (tests)**/
-/***
-param in : pointeur sur le tableau alloué
-param out  : taille du tableau;
-  but : Récupération de floats représentant les échantillons du fichier
-***/
-int extractionCanalGauche(float** tab){
-    FichierWav leSon;
-	int d = 0;
-    int ret = chargeSonEnMemoire(NOM_FICHIER_ENTREE, &leSon);
-    if(ret != OK)
-        afficheEnteteWav(leSon.entete);
-	else
-		d = leSon.tailleSon/(leSon.entete.NbrCanaux*leSon.entete.BytePerBloc);
-    unsigned char *canalGauche;
-    recupCanalGauche(&canalGauche,leSon);
-    signed short int t;
-
-    float tabEch[d];
-    *tab = &tabEch;
-    for(int i = 0; i <d*2; i=i+2){
-        t = (canalGauche[i+1]<<8)+canalGauche[i];
-        tabEch[i/2] = (float)t/32768;
-    }
-    free(leSon.son);
-    return d;
-}
-
-int extraction20msCanalGauche(float** tab){
-    FichierWav leSon;
-    int ret = chargeSonEnMemoire(NOM_FICHIER_ENTREE, &leSon);
-    if(ret != OK)
-        afficheEnteteWav(leSon.entete);
-    unsigned char *canalGauche;
-    recupCanalGauche(&canalGauche,leSon);
-    free(leSon.son);
-    signed short int t;
-    int nbSample = (leSon.entete.Frequence)/5;
-    *tab = malloc(sizeof(float)*nbSample);
-    for(int i = 0; i <nbSample*(leSon.entete.BytePerSample/8); i=i+(leSon.entete.BytePerSample/8)){ //Lecture 2 par 2 [2 char => float]
-        t = (canalGauche[i+1]<<8)+canalGauche[i];
-        (*tab)[i/2] = (float)t/32768;
-    }
-    free(canalGauche);
-    return nbSample;
-}
-/**Fonctions intermédiaires**/
 
 /***
 param in : pointeur sur le tableau à allouer, le canal souhaité
@@ -65,18 +17,18 @@ int conversionFloat20msCanalI(float** tab, char a){
         afficheEnteteWav(leSon.entete);
 	else
 		nbSample = (leSon.entete.Frequence)/5;  //nombre d'échantillon du signal sur 20ms
-   
+
 	unsigned char *canalGauche = leSon.son;
     signed short int t;
     char nbOctets = leSon.entete.BytePerSample/8; //nombre d'octet sur lequel est codée un echantillon
-	
+
     *tab = malloc(sizeof(float)*nbSample);
     for(int i = a-1; i <nbSample*leSon.entete.BytePerBloc; i=i+leSon.entete.BytePerBloc){ //K : groupe d'octets d'un échantillon. Lecture K par K [K char => float] K<=4
         t = canalGauche[i+nbOctets-1];
-        for(int j = nbOctets-1; j>=0; j--){ //transforme les char d'un échantillon X en un float. 
+        for(int j = nbOctets-1; j>=0; j--){ //transforme les char d'un échantillon X en un float.
             t = (t<<8)+canalGauche[i+j];
         }
-        (*tab)[i/2] = (float)t/32768;
+        (*tab)[i/leSon.entete.BytePerBloc] = (float)t/32768;
     }
     free(canalGauche);
     return nbSample;
@@ -109,17 +61,6 @@ void litEnteteWav(FILE *fSon, EnTeteWav *eTwav){
     fread(&(eTwav->BytePerSample),sizeof(short int),1,fSon);
 }
 
-void recupCanalGauche(unsigned char **cG, FichierWav s){
-    int nbSample = s.tailleSon/s.entete.NbrCanaux;
-    int i = 0;
-    *cG = malloc(nbSample);
-    for(int j=0; j<s.tailleSon; j=j+s.entete.BytePerBloc){
-        for(int k=0; k<s.entete.BytePerBloc/s.entete.NbrCanaux; k++){
-            (*cG)[i] = s.son[j+k];
-            i++;
-        }
-    }
-}
 
 /***
 param in  : fichier son, corps vide.

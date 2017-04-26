@@ -32,13 +32,13 @@
 			<Add option="-std=c++98" />
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="LEVINSON_FONCTIONNEL_OPTIMISE_WAV_test.c">
+		<Unit filename="Levinson_final.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="lectureWav.c">
+		<Unit filename="lectureWavFinal.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="lectureWav.h" />
+		<Unit filename="lectureWavFinal.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

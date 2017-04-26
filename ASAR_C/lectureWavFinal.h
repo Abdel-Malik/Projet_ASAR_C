@@ -21,7 +21,7 @@ typedef struct { //structure ou seront stockées les infoRmations importantes  d
     short int BytePerSample;
 }EnTeteWav;
 
-typedef struct{  //structure principale. Permet de manitupler les fihcier wav. 
+typedef struct{  //structure principale. Permet de manitupler les fihcier wav.
     EnTeteWav entete;
     char motData[5]; 	/* devra être une chaine de caractères terminée par 0 */
     int tailleSon;
@@ -38,8 +38,6 @@ void litEnteteWav(FILE *fSon, EnTeteWav *eTwav);
 int litCorpsWav(FILE *fSon, FichierWav *fwav);
 int chargeSonEnMemoire(char *nomDeFichierWav, FichierWav *wav);
 void afficheEnteteWav(EnTeteWav enTeteWav);
-void recupCanalGauche(unsigned char **canalGauche, FichierWav leSon);
-int extraction20msCanalGauche(float** tab);
 int conversionFloat20msCanalI(float** tab, char canalChoisi);
 
 
